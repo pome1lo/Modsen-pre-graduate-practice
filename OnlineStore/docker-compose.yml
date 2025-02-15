@@ -1,0 +1,6 @@
+services:
+  presentationlayer:
+    image: ${DOCKER_REGISTRY-}presentationlayer
+    build:
+      context: .
+      dockerfile: PresentationLayer/Dockerfile

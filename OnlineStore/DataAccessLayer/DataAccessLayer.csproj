@@ -7,4 +7,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Repositories\" />
+    <Folder Include="Data\Interfaces\" />
+    <Folder Include="Data\Configurations\" />
+    <Folder Include="Data\Seeds\" />
+  </ItemGroup>
+
 </Project>

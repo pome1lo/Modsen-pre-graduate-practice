@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer.Models
 {
-    internal abstract class BaseModel
+    public abstract class BaseModel
     {
     }
 }

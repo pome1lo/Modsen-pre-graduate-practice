@@ -1,6 +1,10 @@
 ﻿namespace DataAccessLayer.Models
 {
-    internal class Orders : BaseModel
+    public class Orders : BaseModel
     {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public virtual Users User { get; set; }
+        public virtual ICollection<OrderItems> OrderItems { get; set; }
     }
 }

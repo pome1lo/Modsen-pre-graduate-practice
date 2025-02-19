@@ -1,5 +1,9 @@
+
 using DataAccessLayer.Data.Interfaces;
 using DataAccessLayer.Data.Repositories;
+
+using PresentationLayer.MiddlewareExtensions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 var app = builder.Build();
+
+app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 

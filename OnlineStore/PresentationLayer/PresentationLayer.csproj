@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="MiddlewareExtensions\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\GlobalExceptionHandlerLibrary\GlobalExceptionHandlerLibrary.csproj" />
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
   </ItemGroup>
 

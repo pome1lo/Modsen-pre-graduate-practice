@@ -9,45 +9,18 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : Repository<Categories>, ICategoryRepository
     {
         private readonly ApplicationContext _context;
 
-        public CategoryRepository(ApplicationContext context)
+        public CategoryRepository(ApplicationContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Categories>> GetAllAsync()
+        public async Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync()
         {
-            return await _context.Categories.ToListAsync();
-        }
-
-        public async Task<Categories> GetByIdAsync(int id)
-        {
-            return await _context.Categories.FindAsync(id);
-        }
-
-        public async Task AddAsync(Categories category)
-        {
-            await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(Categories category)
-        {
-            _context.Categories.Update(category);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var category = await GetByIdAsync(id);
-            if (category != null)
-            {
-                _context.Categories.Remove(category);
-                await _context.SaveChangesAsync();
-            }
+            return await _context.Categories.Include(c => c.Products).ToListAsync();
         }
     }
 }

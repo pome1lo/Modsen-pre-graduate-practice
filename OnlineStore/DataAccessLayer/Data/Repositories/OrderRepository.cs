@@ -9,45 +9,20 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : Repository<Orders>, IOrderRepository
     {
         private readonly ApplicationContext _context;
 
-        public OrderRepository(ApplicationContext context)
+        public OrderRepository(ApplicationContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Orders>> GetAllAsync()
+        public async Task<IEnumerable<Orders>> GetOrdersByUserIdAsync(int userId)
         {
-            return await _context.Orders.Include(o => o.User).ToListAsync();
-        }
-
-        public async Task<Orders> GetByIdAsync(int id)
-        {
-            return await _context.Orders.FindAsync(id);
-        }
-
-        public async Task AddAsync(Orders order)
-        {
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(Orders order)
-        {
-            _context.Orders.Update(order);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var order = await GetByIdAsync(id);
-            if (order != null)
-            {
-                _context.Orders.Remove(order);
-                await _context.SaveChangesAsync();
-            }
+            return await _context.Orders
+                .Where(o => o.UserId == userId)
+                .ToListAsync();
         }
     }
 }

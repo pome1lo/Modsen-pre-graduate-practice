@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Interfaces
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IRepository<Categories>
     {
-        Task<IEnumerable<Categories>> GetAllAsync();
-        Task<Categories> GetByIdAsync(int id);
-        Task AddAsync(Categories category);
-        Task UpdateAsync(Categories category);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync();
     }
 }

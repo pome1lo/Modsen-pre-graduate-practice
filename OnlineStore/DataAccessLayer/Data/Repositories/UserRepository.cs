@@ -9,45 +9,24 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<Users>, IUserRepository
     {
         private readonly ApplicationContext _context;
 
-        public UserRepository(ApplicationContext context)
+        public UserRepository(ApplicationContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Users>> GetAllAsync()
+        public async Task<Users> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task<IEnumerable<Users>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
-        }
-
-        public async Task<Users> GetByIdAsync(int id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
-
-        public async Task AddAsync(Users user)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(Users user)
-        {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var user = await GetByIdAsync(id);
-            if (user != null)
-            {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-            }
         }
     }
 }

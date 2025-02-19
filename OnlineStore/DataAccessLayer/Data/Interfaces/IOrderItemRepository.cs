@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Interfaces
 {
-    public interface IOrderItemRepository
+    public interface IOrderItemRepository : IRepository<OrderItems>
     {
-        Task<IEnumerable<OrderItems>> GetAllAsync();
-        Task<OrderItems> GetByIdAsync(int id);
-        Task AddAsync(OrderItems orderItem);
-        Task UpdateAsync(OrderItems orderItem);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<OrderItems>> GetOrderItemsByOrderIdAsync(int orderId);
     }
 }

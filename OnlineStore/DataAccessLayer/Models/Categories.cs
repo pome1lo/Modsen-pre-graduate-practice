@@ -1,10 +1,8 @@
-﻿
-namespace DataAccessLayer.Models
+﻿namespace DataAccessLayer.Models;
+
+public class Categories : BaseModel
 {
-    public class Categories : BaseModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public virtual ICollection<Products> Products { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public virtual ICollection<Products> Products { get; set; }
 }

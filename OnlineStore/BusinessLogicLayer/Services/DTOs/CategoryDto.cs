@@ -1,6 +1,6 @@
-﻿namespace BusinessLogicLayer.Services.DTOs
+﻿namespace BusinessLogicLayer.Services.DTOs;
+
+public class CategoryDto
 {
-    public class CategoryDto
-    {
-    }
+    public required string Name { get; set; }
 }

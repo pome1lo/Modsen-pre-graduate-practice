@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Services.DTOs;
+﻿using AutoMapper;
+using BusinessLogicLayer.Services.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Data.Interfaces;
 using DataAccessLayer.Data.Repositories;
@@ -10,10 +11,12 @@ namespace BusinessLogicLayer.Services
     {
         private readonly IRepository<Orders> _orderRepository;
         private readonly IRepository<Users> _userRepository;
+        private readonly IMapper _mapper;
 
-        public OrderService(IRepository<Orders> orderRepository)
+        public OrderService(IRepository<Orders> orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
+            _mapper = mapper;
         }
 
         public async Task<OrderDto> GetOrderByIdAsync(int orderId, CancellationToken cancellationToken = default)
@@ -24,7 +27,7 @@ namespace BusinessLogicLayer.Services
             {
                 throw new Exception($"Order with ID {orderId} not found.");
             }
-            OrderDto orderDto = new OrderDto() { Id = order.Id, UserId = order.UserId };
+            OrderDto orderDto = _mapper.Map<OrderDto>(order);
 
             return orderDto;
         }
@@ -33,11 +36,7 @@ namespace BusinessLogicLayer.Services
         {
             var orders = await _orderRepository.GetAllAsync();
 
-            List<OrderDto> result = orders.Select(order => new OrderDto
-            {
-                Id = order.Id,
-                UserId = order.UserId
-            }).ToList();
+            List<OrderDto> result = orders.Select(order => _mapper.Map<OrderDto>(order)).ToList();
             return result;
         }
 
@@ -55,7 +54,7 @@ namespace BusinessLogicLayer.Services
                 .Where(o => o.UserId == userId);
 
 
-            List<OrderDto> result = orders.Select(order => new OrderDto { Id = order.Id, UserId = order.UserId}).ToList(); 
+            List<OrderDto> result = orders.Select(order => _mapper.Map<OrderDto>(order)).ToList(); 
             return result;
         }
 
@@ -64,7 +63,7 @@ namespace BusinessLogicLayer.Services
             var order = new Orders() { Id = newOrder.Id, UserId = newOrder.UserId };
             await _orderRepository.AddAsync(order);
 
-            OrderDto result = new OrderDto() { Id = order.Id, UserId = order.UserId };
+            OrderDto result = _mapper.Map<OrderDto>(order);
             return result;
         }
 
@@ -77,7 +76,7 @@ namespace BusinessLogicLayer.Services
                 throw new Exception($"Order with ID {orderId} not found.");
             }
 
-            var order = new Orders() { Id = updatedOrder.Id, UserId = updatedOrder.UserId};
+            var order = _mapper.Map<Orders>(updatedOrder);
             await _orderRepository.UpdateAsync(order);
         }
 

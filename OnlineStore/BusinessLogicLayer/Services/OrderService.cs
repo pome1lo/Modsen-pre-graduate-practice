@@ -21,7 +21,7 @@ namespace BusinessLogicLayer.Services
 
         public async Task<OrderDto> GetOrderByIdAsync(int orderId, CancellationToken cancellationToken = default)
         {
-            var order = await _orderRepository.GetByIdAsync(orderId);
+            var order = await _orderRepository.GetByIdAsync(orderId, cancellationToken);
 
             if (order is null)
             {
@@ -34,7 +34,7 @@ namespace BusinessLogicLayer.Services
 
         public async Task<IEnumerable<OrderDto>> GetAllOrdersAsync(CancellationToken cancellationToken = default)
         {
-            var orders = await _orderRepository.GetAllAsync();
+            var orders = await _orderRepository.GetAllAsync(cancellationToken);
 
             List<OrderDto> result = orders.Select(order => _mapper.Map<OrderDto>(order)).ToList();
             return result;
@@ -43,14 +43,14 @@ namespace BusinessLogicLayer.Services
         public async Task<IEnumerable<OrderDto>> GetOrdersByUserIdAsync(int userId, CancellationToken cancellationToken = default)
         {
 
-            var user = (await _userRepository.GetAllAsync())
+            var user = (await _userRepository.GetAllAsync(cancellationToken))
                 .FirstOrDefault(c => c.Id == userId);
             if (user is null)
             {
                 throw new Exception($"User with ID {userId} not found.");
             }
 
-            var orders = (await _orderRepository.GetAllAsync())
+            var orders = (await _orderRepository.GetAllAsync(cancellationToken))
                 .Where(o => o.UserId == userId);
 
 
@@ -61,7 +61,7 @@ namespace BusinessLogicLayer.Services
         public async Task<OrderDto> CreateOrderAsync(OrderDto newOrder, CancellationToken cancellationToken = default)
         {
             var order = new Orders() { Id = newOrder.Id, UserId = newOrder.UserId };
-            await _orderRepository.AddAsync(order);
+            await _orderRepository.AddAsync(order, cancellationToken);
 
             OrderDto result = _mapper.Map<OrderDto>(order);
             return result;
@@ -69,7 +69,7 @@ namespace BusinessLogicLayer.Services
 
         public async Task UpdateOrderAsync(int orderId, OrderDto updatedOrder, CancellationToken cancellationToken = default)
         {
-            var existingOrder = await _orderRepository.GetByIdAsync(orderId);
+            var existingOrder = await _orderRepository.GetByIdAsync(orderId, cancellationToken);
 
             if (existingOrder is null)
             {
@@ -82,7 +82,7 @@ namespace BusinessLogicLayer.Services
 
         public async Task DeleteOrderAsync(int orderId, CancellationToken cancellationToken = default)
         {
-            var order = await _orderRepository.GetByIdAsync(orderId);
+            var order = await _orderRepository.GetByIdAsync(orderId, cancellationToken);
 
             if (order is null)
             {

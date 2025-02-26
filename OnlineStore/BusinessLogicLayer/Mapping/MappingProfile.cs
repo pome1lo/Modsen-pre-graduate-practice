@@ -20,5 +20,16 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.UpdatedDate, opt => opt.Ignore())
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Products, opt => opt.Ignore());
-    }
+
+        CreateMap<Orders, OrderDto>(MemberList.Destination)
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.UserId, opt => opt.Ignore());
+
+        CreateMap<OrderDto, Orders>(MemberList.Destination)
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.UserId, opt => opt.Ignore())
+            .ForMember(dest => dest.OrderDate, opt => opt.Ignore())
+            .ForMember(dest => dest.TotalAmount, opt => opt.Ignore());
+
+}
 }

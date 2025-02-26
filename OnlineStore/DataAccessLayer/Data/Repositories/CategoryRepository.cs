@@ -13,8 +13,8 @@ public class CategoryRepository : Repository<Categories>, ICategoryRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync()
+    public async Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync(CancellationToken token = default)
     {
-        return await _context.Categories.Include(c => c.Products).ToListAsync();
+        return await _context.Categories.Include(c => c.Products).ToListAsync(token);
     }
 }

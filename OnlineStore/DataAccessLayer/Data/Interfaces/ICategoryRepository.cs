@@ -1,9 +1,8 @@
 ﻿using DataAccessLayer.Models;
 
-namespace DataAccessLayer.Data.Interfaces
+namespace DataAccessLayer.Data.Interfaces;
+
+public interface ICategoryRepository : IRepository<Categories>
 {
-    public interface ICategoryRepository : IRepository<Categories>
-    {
-        Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync();
-    }
+    Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync(CancellationToken token = default);
 }

@@ -2,7 +2,6 @@
 using BusinessLogicLayer.Services.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Data.Interfaces;
-using DataAccessLayer.Data.Repositories;
 using DataAccessLayer.Models;
 
 namespace BusinessLogicLayer.Services
@@ -10,7 +9,7 @@ namespace BusinessLogicLayer.Services
     public class OrderService : IOrderService
     {
         private readonly IRepository<Orders> _orderRepository;
-        private readonly IRepository<Users> _userRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
 
         public OrderService(IRepository<Orders> orderRepository, IMapper mapper)
@@ -54,7 +53,7 @@ namespace BusinessLogicLayer.Services
                 .Where(o => o.UserId == userId);
 
 
-            List<OrderDto> result = orders.Select(order => _mapper.Map<OrderDto>(order)).ToList(); 
+            List<OrderDto> result = orders.Select(order => _mapper.Map<OrderDto>(order)).ToList();
             return result;
         }
 

@@ -11,7 +11,7 @@ namespace BusinessLogicLayer.Services.DTOs
 
         public UserDto() { }
 
-        public UserDto(Users user)
+        public UserDto(User user)
         {
             Id = user.Id;
             Username = user.Username;

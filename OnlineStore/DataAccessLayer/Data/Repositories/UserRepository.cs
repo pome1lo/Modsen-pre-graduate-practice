@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Repositories
 {
-    public class UserRepository : Repository<Users>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly ApplicationContext _context;
 
@@ -18,13 +18,13 @@ namespace DataAccessLayer.Data.Repositories
             _context = context;
         }
 
-        public async Task<Users> GetUserByEmailAsync(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<IEnumerable<Users>> GetAllUsersAsync()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }

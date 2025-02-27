@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer.Models
 {
-    public class Users : BaseModel
+    public class User : BaseModel
     {
         public int Id { get; set; }
         public string Username { get; set; }

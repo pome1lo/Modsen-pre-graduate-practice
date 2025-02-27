@@ -1,7 +1,8 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Http; 
+﻿using BusinessLogicLayer.Exceptions;
+using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using System.Net;
-using System.Text.Json; 
+using System.Text.Json;
 
 namespace GlobalExceptionHandlerLibrary
 {
@@ -26,26 +27,30 @@ namespace GlobalExceptionHandlerLibrary
                 Console.WriteLine(ex.Message);
                 Console.BackgroundColor = ConsoleColor.Black;
 
-
                 var statusCode = HttpStatusCode.InternalServerError;
                 var errorCode = "InternalServerError";
                  
-                if (ex is ArgumentException)
+                if (ex is NotFoundException)
+                {
+                    statusCode = HttpStatusCode.NotFound;
+                    errorCode = "NotFoundException";
+                } 
+                else if (ex is ArgumentException)
                 {
                     statusCode = HttpStatusCode.BadRequest;
                     errorCode = "ArgumentException";
-                }  
+                }
                 else if (ex is UnauthorizedAccessException)
                 {
                     statusCode = HttpStatusCode.Unauthorized;
                     errorCode = "UnauthorizedAccessException";
-                } 
+                }
                 else if (ex is ValidationException)
                 {
                     statusCode = HttpStatusCode.BadRequest;
                     errorCode = "ValidationException";
-                } 
-
+                }
+                 
                 context.Response.StatusCode = (int)statusCode;
                 context.Response.ContentType = "application/json";
 

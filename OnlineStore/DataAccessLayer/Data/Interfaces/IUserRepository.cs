@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Interfaces
 {
-    public interface IUserRepository : IRepository<Users>
+    public interface IUserRepository : IRepository<User>
     {
-        Task<Users> GetUserByEmailAsync(string email);
-        Task<IEnumerable<Users>> GetAllUsersAsync();
+        Task<User> GetUserByEmailAsync(string email);
+        Task<IEnumerable<User>> GetAllUsersAsync();
     }
 }

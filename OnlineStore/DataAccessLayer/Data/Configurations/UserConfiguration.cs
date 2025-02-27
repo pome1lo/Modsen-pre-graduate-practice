@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Configurations
 {
-    public class UserConfiguration : BaseEntityConfiguration<Users>
+    public class UserConfiguration : BaseEntityConfiguration<User>
     {
-        public override void Configure(EntityTypeBuilder<Users> builder)
+        public override void Configure(EntityTypeBuilder<User> builder)
         {
             base.Configure(builder);
 

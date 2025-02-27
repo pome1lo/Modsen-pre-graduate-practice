@@ -1,7 +1,8 @@
-
+using BusinessLogicLayer.Services;
+using BusinessLogicLayer.Services.DTOs.Profiles;
+using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Data.Interfaces;
 using DataAccessLayer.Data.Repositories;
-
 using PresentationLayer.MiddlewareExtensions;
 
 
@@ -12,6 +13,10 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAutoMapper(typeof(UserMappingProfile));
 
 var app = builder.Build();
 

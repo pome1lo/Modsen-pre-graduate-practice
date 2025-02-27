@@ -4,23 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Data.Repositories;
 
-public class UserRepository : Repository<Users>, IUserRepository
+public class UserRepository : Repository<User>, IUserRepository
 {
+ 
     private readonly ApplicationContext _context;
 
     public UserRepository(ApplicationContext context) : base(context)
     {
         _context = context;
     }
-
-    public async Task<Users> GetUserByEmailAsync(string email, CancellationToken token = default)
+ 
+    public async Task<User> GetUserByEmailAsync(string email, CancellationToken token = default)
     {
         return await _context.Users
             .FirstOrDefaultAsync(u => u.Email == email, token);
     }
 
-    public async Task<IEnumerable<Users>> GetAllUsersAsync(CancellationToken token = default)
+    public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken token = default)
     {
-        return await _context.Users.ToListAsync(token);
+        return await _context.Users.ToListAsync(token); 
     }
 }

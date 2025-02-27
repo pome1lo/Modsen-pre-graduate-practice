@@ -2,8 +2,8 @@
 
 namespace DataAccessLayer.Data.Interfaces;
 
-public interface IUserRepository : IRepository<Users>
-{
-    Task<Users> GetUserByEmailAsync(string email, CancellationToken token = default);
-    Task<IEnumerable<Users>> GetAllUsersAsync(CancellationToken token = default);
+public interface IUserRepository : IRepository<User>
+{ 
+    Task<User> GetUserByEmailAsync(string email, CancellationToken token = default);
+    Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken token = default); 
 }

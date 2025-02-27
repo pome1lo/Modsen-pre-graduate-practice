@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccessLayer.Data.Interfaces
+﻿namespace DataAccessLayer.Data.Interfaces;
+
+
+public interface IRepository<T> where T : class
 {
-    public interface IRepository<T> where T : class
-    {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int id);
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
-    }
+    Task<IEnumerable<T>> GetAllAsync(CancellationToken token = default);
+    Task<T> GetByIdAsync(int id, CancellationToken token = default);
+    Task AddAsync(T entity, CancellationToken token = default);
+    Task UpdateAsync(T entity, CancellationToken token = default);
+    Task DeleteAsync(int id, CancellationToken token = default);
 }

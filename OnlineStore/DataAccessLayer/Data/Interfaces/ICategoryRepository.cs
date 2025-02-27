@@ -1,14 +1,8 @@
 ﻿using DataAccessLayer.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccessLayer.Data.Interfaces
+namespace DataAccessLayer.Data.Interfaces;
+
+public interface ICategoryRepository : IRepository<Categories>
 {
-    public interface ICategoryRepository : IRepository<Categories>
-    {
-        Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync();
-    }
+    Task<IEnumerable<Categories>> GetCategoriesWithProductsAsync(CancellationToken token = default);
 }

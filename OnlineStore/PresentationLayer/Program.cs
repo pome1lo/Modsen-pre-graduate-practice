@@ -20,9 +20,8 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
     services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
     services.AddBusinessServices();
-
+    //services.AddSwagger();
     services.AddAutoMapper(typeof(UserMappingProfile));
-
     services.AddDatabase(configuration);
 
     services.AddCors(options =>
@@ -53,8 +52,13 @@ static void ConfigureServices(IServiceCollection services, IConfiguration config
 var app = builder.Build();
 
 app.UseGlobalExceptionHandler();
-
 app.UseHttpsRedirection();
+
+if (app.Environment.IsDevelopment())
+{
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
+}
 
 app.Services.MigrateDatabase();
 

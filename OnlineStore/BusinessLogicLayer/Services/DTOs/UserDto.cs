@@ -1,22 +1,11 @@
-﻿using DataAccessLayer.Models;
+﻿namespace BusinessLogicLayer.Services.DTOs;
 
-namespace BusinessLogicLayer.Services.DTOs
+public class UserDto
 {
-    public class UserDto
-    {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
+    public int Id { get; set; }
+    public string Username { get; set; } = string.Empty;
 
-        public UserDto() { }
+    public string Password { get; set; } = string.Empty;
 
-        public UserDto(User user)
-        {
-            Id = user.Id;
-            Username = user.Username;
-            Password = user.Password;
-            Email = user.Email;
-        }
-    }
+    public string Email { get; set; } = string.Empty;
 }

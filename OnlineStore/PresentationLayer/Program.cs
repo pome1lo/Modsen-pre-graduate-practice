@@ -1,25 +1,54 @@
-using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Services.DTOs.Profiles;
-using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Data.Interfaces;
 using DataAccessLayer.Data.Repositories;
+using Microsoft.AspNetCore.HttpLogging;
+using PresentationLayer;
 using PresentationLayer.MiddlewareExtensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+ConfigureServices(builder.Services, builder.Configuration);
 
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+    services.AddScoped<ICategoryRepository, CategoryRepository>();
+    services.AddScoped<IProductRepository, ProductRepository>();
+    services.AddScoped<IOrderRepository, OrderRepository>();
+    services.AddScoped<IUserRepository, UserRepository>();
+    services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
-builder.Services.AddAutoMapper(typeof(UserMappingProfile));
+    services.AddBusinessServices();
+
+    services.AddAutoMapper(typeof(UserMappingProfile));
+
+    services.AddDatabase(configuration);
+
+    services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll",
+            policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+    });
+
+    services.AddHttpLogging(options =>
+    {
+        options.CombineLogs = true;
+        options.LoggingFields =
+            HttpLoggingFields.RequestQuery
+            | HttpLoggingFields.RequestMethod
+            | HttpLoggingFields.RequestPath
+            | HttpLoggingFields.RequestBody
+            | HttpLoggingFields.ResponseStatusCode
+            | HttpLoggingFields.ResponseBody
+            | HttpLoggingFields.Duration;
+    });
+}
 
 var app = builder.Build();
 
@@ -27,7 +56,6 @@ app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "The Web API is working.");
+app.Services.MigrateDatabase();
 
 app.Run();
-

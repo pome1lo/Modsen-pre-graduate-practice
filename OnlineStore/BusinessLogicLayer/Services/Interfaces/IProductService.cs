@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services.DTOs;
+using DataAccessLayer.Models;
 
 namespace BusinessLogicLayer.Services.Interfaces
 {
@@ -11,5 +12,6 @@ namespace BusinessLogicLayer.Services.Interfaces
         Task UpdateProductAsync(int productId, ProductDto updatedProduct, CancellationToken cancellationToken = default);
         Task DeleteProductAsync(int productId, CancellationToken cancellationToken = default);
     }
+
 
 }

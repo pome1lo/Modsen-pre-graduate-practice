@@ -1,4 +1,6 @@
-﻿namespace DataAccessLayer.Models;
+using DataAccessLayer.Models.Enums;
+
+namespace DataAccessLayer.Models;
 
 public class User : BaseModel
 {
@@ -10,5 +12,6 @@ public class User : BaseModel
     public string RefreshToken { get; set; }
     public DateTime CreatedDate { get; set; } 
     public DateTime UpdatedDate { get; set; }
+    public RoleList Roles { get; set; }
     public virtual ICollection<Orders> Orders { get; set; }
 }

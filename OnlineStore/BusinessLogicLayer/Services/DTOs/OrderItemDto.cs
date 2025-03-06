@@ -1,6 +1,5 @@
-﻿namespace BusinessLogicLayer.Services.DTOs
+﻿namespace BusinessLogicLayer.Services.DTOs;
+
+public class OrderItemDto
 {
-    public class OrderItemDto
-    {
-    }
 }

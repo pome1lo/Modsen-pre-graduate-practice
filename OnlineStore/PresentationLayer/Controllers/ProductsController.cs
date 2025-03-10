@@ -1,5 +1,8 @@
-﻿using BusinessLogicLayer.Services.DTOs;
+﻿using AutoMapper;
+using BusinessLogicLayer.Services.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
+using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -18,6 +21,7 @@ namespace PresentationLayer.Controllers
 
         
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(CancellationToken cancellationToken)
         {
             return Ok(await _productService.GetAllProductsAsync(cancellationToken));
@@ -25,6 +29,7 @@ namespace PresentationLayer.Controllers
 
         
         [HttpGet("{productId}")]
+        [Authorize]
         public async Task<ActionResult<ProductDto>> GetProductById(int productId, CancellationToken cancellationToken)
         {
             var product = await _productService.GetProductByIdAsync(productId, cancellationToken);
@@ -35,8 +40,16 @@ namespace PresentationLayer.Controllers
             return Ok(product);
         }
 
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateUser(ProductDto createProduct, CancellationToken cancellationToken)
+        {
+            return Ok(await _productService.CreateProductAsync(createProduct, cancellationToken));
+        }
         
         [HttpPut("{productId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProduct(int productId, [FromBody] ProductDto updatedProduct, CancellationToken cancellationToken)
         {
             await _productService.UpdateProductAsync(productId, updatedProduct, cancellationToken);
@@ -45,6 +58,7 @@ namespace PresentationLayer.Controllers
 
         
         [HttpDelete("{productId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int productId, CancellationToken cancellationToken)
         {
             await _productService.DeleteProductAsync(productId, cancellationToken);

@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Services.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers;
@@ -12,6 +13,7 @@ public class OrderItemController(
 {
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<OrderItemDto>> GetOrderItemById(int id, CancellationToken cancellationToken)
     {
         var orderItem = await orderItemService.GetOrderItemByIdAsync(id, cancellationToken);
@@ -19,6 +21,7 @@ public class OrderItemController(
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<OrderItemDto>>> GetAllOrderItems(int id,
         CancellationToken cancellationToken = default)
     {
@@ -27,6 +30,7 @@ public class OrderItemController(
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<OrderItemDto>> CreateOrderItem(OrderItemDto newOrderItem,
         CancellationToken cancellationToken = default)
     {
@@ -35,6 +39,7 @@ public class OrderItemController(
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<ActionResult<OrderItemDto>> UpdateOrderItem(int id, OrderItemDto updatedOrderItem,
         CancellationToken cancellationToken = default)
     {
@@ -43,6 +48,7 @@ public class OrderItemController(
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<ActionResult<OrderItemDto>> DeleteOrderItem(int id, CancellationToken cancellationToken = default)
     {
         await orderItemService.DeleteOrderItemAsync(id, cancellationToken);

@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalExceptionHandlerLibrary", "..\GlobalExceptionHandlerLibrary\GlobalExceptionHandlerLibrary.csproj", "{7FAE5A85-2768-410F-9FE4-F7BCE37D9131}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "clientui", "ClientUI\clientui.esproj", "{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,12 @@ Global
 		{7FAE5A85-2768-410F-9FE4-F7BCE37D9131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FAE5A85-2768-410F-9FE4-F7BCE37D9131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FAE5A85-2768-410F-9FE4-F7BCE37D9131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{43E85F82-F3E7-4BE1-9AA4-EC2582585292} = {421741BA-4BC3-4583-9EFF-8FFE473670C2}
 		{023869C4-8700-46BF-9F20-13008F847056} = {421741BA-4BC3-4583-9EFF-8FFE473670C2}
 		{7FAE5A85-2768-410F-9FE4-F7BCE37D9131} = {023869C4-8700-46BF-9F20-13008F847056}
+		{AF8A3CED-8F5A-CBC8-B704-45FAB67180C2} = {5CF9BD1D-E40C-4985-86E5-31688F5504C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24E0159F-2207-43B9-BC9F-7475D8E919C9}

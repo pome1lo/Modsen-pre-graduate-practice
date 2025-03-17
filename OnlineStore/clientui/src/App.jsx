@@ -1,16 +1,20 @@
 import './App.css'
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
+import BasicLayout from "./layout/BasicLayout.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
     return (
-        <>
-            <Header />
-            <div>
-                INDEX
-            </div>
-            <Footer/>
-        </>
+        <Router>
+            <BasicLayout>
+                <Routes>
+                    <Route path="/" element={<h1>Home Page</h1>} />
+                    <Route path="/about" element={<h1>About Page</h1>} />
+                    <Route path="/login" element={<h1>Auth Page</h1>} />
+                    <Route path="/catalog" element={<h1>Catalog Page</h1>} />
+                    <Route path="/profile" element={<h1>Profile Page</h1>} />
+                </Routes>
+            </BasicLayout>
+        </Router>
     )
 }
 

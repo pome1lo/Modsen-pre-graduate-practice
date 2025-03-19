@@ -52,7 +52,7 @@ function LoginPage() {
                                 </button>
                             </form>
                             <div className="mt-3 text-center">
-                                <a href="/forgot-password">Забыли пароль?</a>
+                                <a href="/register">Регистрация</a>
                             </div>
                         </div>
                     </div>

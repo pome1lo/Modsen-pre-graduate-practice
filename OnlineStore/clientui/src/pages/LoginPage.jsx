@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -11,8 +14,10 @@ function LoginPage() {
         if (!email || !password) {
             setError('Пожалуйста, заполните все поля.');
         } else {
-            // Пример запроса для входа (замените на свою логику)
+            const userData = { email };
+            localStorage.setItem('user', JSON.stringify(userData));
             console.log('Логин:', email, password);
+            navigate('/')
         }
     };
 

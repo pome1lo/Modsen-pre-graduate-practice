@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import FilterPanel from './UI/FilterPanel';
-import Pagination from './UI/Pagination';
+import FilterPanel from '../components/UI/FilterPanel';
+import Pagination from '../components/UI/Pagination';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const categoriesData = [
@@ -77,7 +77,6 @@ function HomePage() {
         } else {
             cartItems.push(product);
             localStorage.setItem('cart', JSON.stringify(cartItems));
-            alert('Product added to cart');
         }
     };
 

@@ -2,7 +2,8 @@
 using BusinessLogicLayer.Exceptions;
 using BusinessLogicLayer.Services.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
-using DataAccessLayer.Data.Repositories; 
+using DataAccessLayer.Data.Repositories;
+using DataAccessLayer.Models;
 
 namespace BusinessLogicLayer.Services;
 
@@ -31,6 +32,15 @@ public class UserService : IUserService
     {
         var users = await _userRepository.GetAllUsersAsync();
         return _mapper.Map<IEnumerable<UserDto>>(users);
+    }
+
+    public async Task<UserDto> CreateUserAsync(UserDto user,CancellationToken cancellationToken = default)
+    {
+        User userModel = _mapper.Map<User>(user);
+        userModel.CreatedDate = DateTime.Now;
+
+        await _userRepository.AddAsync(userModel, cancellationToken);
+        return user;
     }
       
     public async Task UpdateUserAsync(int userId, UserDto updatedUser, CancellationToken cancellationToken = default)

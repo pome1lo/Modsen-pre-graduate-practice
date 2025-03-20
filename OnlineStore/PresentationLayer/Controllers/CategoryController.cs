@@ -1,5 +1,7 @@
 ﻿using BusinessLogicLayer.Services.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
+using DataAccessLayer.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers;
@@ -11,6 +13,7 @@ public class CategoryController(
 ) : ControllerBase
 {
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAllCategories(CancellationToken cancellationToken = default)
     {
         var categories = await categoryService.GetAllCategoriesAsync(cancellationToken);
@@ -18,6 +21,7 @@ public class CategoryController(
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<CategoryDto>> GetCategoryById(int id, CancellationToken cancellationToken = default)
     {
         var category = await categoryService.GetCategoryByIdAsync(id, cancellationToken);
@@ -25,6 +29,7 @@ public class CategoryController(
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<CategoryDto>> CreateCategory(CategoryDto newCategory, CancellationToken cancellationToken = default)
     {
         var createdCategory = await categoryService.CreateCategoryAsync(newCategory, cancellationToken);
@@ -32,6 +37,7 @@ public class CategoryController(
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateCategory(int id, CategoryDto updatedCategory, CancellationToken cancellationToken = default)
     {
         await categoryService.UpdateCategoryAsync(id, updatedCategory, cancellationToken);
@@ -39,6 +45,7 @@ public class CategoryController(
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteCategory(int id, CancellationToken cancellationToken = default)
     {
         await categoryService.DeleteCategoryAsync(id, cancellationToken);

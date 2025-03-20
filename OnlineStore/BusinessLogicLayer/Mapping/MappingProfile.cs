@@ -31,5 +31,6 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.OrderDate, opt => opt.Ignore())
             .ForMember(dest => dest.TotalAmount, opt => opt.Ignore());
 
+        CreateMap<ProductDto, Products>(MemberList.Source);
 }
 }
